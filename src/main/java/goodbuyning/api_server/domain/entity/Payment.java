@@ -1,5 +1,6 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -60,34 +61,4 @@ public class Payment extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
-
-    /**
-     * 결제 상태를 변경합니다.
-     */
-    public void changeStatus(PaymentStatus status) {
-        this.status = status;
-    }
-
-    /**
-     * 입금 정보를 업데이트합니다.
-     */
-    public void updateDepositInfo(String depositorName, BigDecimal depositAmount, String proofFilekey) {
-        this.depositorName = depositorName;
-        this.depositAmount = depositAmount;
-        this.proofFilekey = proofFilekey;
-    }
-
-    /**
-     * 입금액이 주문 금액과 일치하는지 확인합니다.
-     */
-    public boolean isAmountMatched() {
-        return order != null && depositAmount.compareTo(order.getTotalAmount()) == 0;
-    }
-
-    /**
-     * 결제가 승인 가능한 상태인지 확인합니다.
-     */
-    public boolean isApprovable() {
-        return status == PaymentStatus.PROOF_SUBMITTED && isAmountMatched();
-    }
 }

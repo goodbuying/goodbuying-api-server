@@ -1,5 +1,7 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.SocialProvider;
+import goodbuyning.api_server.domain.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -62,18 +64,4 @@ public class SellerSocial extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;
-
-    /**
-     * 소셜 연동을 해제합니다.
-     */
-    public void disconnect() {
-        this.status = Status.INACTIVE;
-    }
-
-    /**
-     * 소셜 토큰 만료 시간을 업데이트합니다.
-     */
-    public void updateExpireAt(LocalDateTime expireAt) {
-        this.expireAt = expireAt;
-    }
 }

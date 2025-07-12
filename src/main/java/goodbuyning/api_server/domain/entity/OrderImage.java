@@ -37,20 +37,4 @@ public class OrderImage extends BaseEntity {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    /**
-     * 이미지 파일키를 업데이트합니다.
-     */
-    public void updateFilekey(String filekey) {
-        this.filekey = filekey;
-    }
-
-    /**
-     * 주문과의 연관관계를 설정합니다.
-     */
-    public void setOrder(Order order) {
-        this.order = order;
-        if (order != null && !order.getOrderImages().contains(this)) {
-            order.getOrderImages().add(this);
-        }
-    }
 }

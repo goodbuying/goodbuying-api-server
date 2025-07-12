@@ -1,4 +1,4 @@
-package goodbuyning.api_server.domain.entity;
+package goodbuyning.api_server.domain.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum PaymentMethod {
     BANK_TRANSFER("bank_transfer", "계좌이체"),
-    CREDIT_CARD("credit_card", "신용카드"),
-    VIRTUAL_ACCOUNT("virtual_account", "가상계좌"),
-    MOBILE_PAYMENT("mobile_payment", "모바일 결제");
-
+    CREDIT_CARD("credit_card", "신용카드");
     private final String code;
     private final String displayName;
 }

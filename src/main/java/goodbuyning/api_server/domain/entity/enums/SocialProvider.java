@@ -1,4 +1,4 @@
-package goodbuyning.api_server.domain.entity;
+package goodbuyning.api_server.domain.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum SocialProvider {
-    KAKAO("kakao", "카카오"),
-    NAVER("naver", "네이버"),
-    GOOGLE("google", "구글"),
-    APPLE("apple", "애플");
+    KAKAO("kakao", "카카오");
 
     private final String code;
     private final String displayName;

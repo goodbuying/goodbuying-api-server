@@ -1,5 +1,6 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -86,58 +87,4 @@ public class Product extends BaseEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<ProductImage> productImages = new ArrayList<>();
-
-    /**
-     * 상품 정보를 업데이트합니다.
-     */
-    public void updateInfo(String name, BigDecimal price, String description, Integer discount) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.discount = discount;
-    }
-
-    /**
-     * 상품 상태를 변경합니다.
-     */
-    public void changeStatus(Status status) {
-        this.status = status;
-    }
-
-    /**
-     * 마켓과의 연관관계를 설정합니다.
-     */
-    public void setMarket(Market market) {
-        this.market = market;
-        if (market != null && !market.getProducts().contains(this)) {
-            market.getProducts().add(this);
-        }
-    }
-
-    /**
-     * 할인이 적용된 실제 판매 가격을 계산합니다.
-     */
-    public BigDecimal getDiscountedPrice() {
-        if (discount == 0) {
-            return price;
-        }
-        BigDecimal discountAmount = price.multiply(BigDecimal.valueOf(discount)).divide(BigDecimal.valueOf(100));
-        return price.subtract(discountAmount);
-    }
-
-    /**
-     * 상품의 총 재고량을 계산합니다.
-     */
-    public int getTotalStock() {
-        return productOptions.stream()
-                .mapToInt(ProductOption::getCurrentStock)
-                .sum();
-    }
-
-    /**
-     * 상품이 품절인지 확인합니다.
-     */
-    public boolean isOutOfStock() {
-        return getTotalStock() <= 0;
-    }
 }

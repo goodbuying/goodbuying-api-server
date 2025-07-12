@@ -1,4 +1,4 @@
-package goodbuyning.api_server.domain.entity;
+package goodbuyning.api_server.domain.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

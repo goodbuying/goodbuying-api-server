@@ -1,5 +1,6 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -64,42 +65,10 @@ public class Customer extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
-
-    /**
-     * 리프레시 토큰
-     * JWT 토큰 갱신을 위해 사용됩니다.
-     */
-    @Column(name = "refresh_token", length = 500)
-    private String refreshToken;
-
     /**
      * 소셜 로그인 정보
      * 1:1 관계로 연결됩니다.
      */
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private CustomerSocial customerSocial;
-
-    /**
-     * 고객의 상태를 변경합니다.
-     */
-    public void changeStatus(Status status) {
-        this.status = status;
-    }
-
-    /**
-     * 리프레시 토큰을 업데이트합니다.
-     */
-    public void updateRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    /**
-     * 고객 정보를 업데이트합니다.
-     */
-    public void updateInfo(String name, String phoneNumber, String address, String addressDetail) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.addressDetail = addressDetail;
-    }
 }

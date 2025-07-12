@@ -1,5 +1,9 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.ChangedBy;
+import goodbuyning.api_server.domain.entity.enums.OrderStatus;
+import goodbuyning.api_server.domain.entity.enums.PaymentMethod;
+import goodbuyning.api_server.domain.entity.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -148,54 +152,4 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderHistory> orderHistories = new ArrayList<>();
-
-    /**
-     * 주문 상태를 변경합니다.
-     */
-    public void changeOrderStatus(OrderStatus newStatus, ChangedBy changedBy) {
-        OrderStatus previousStatus = this.orderStatus;
-        this.orderStatus = newStatus;
-        
-        // 주문 이력 추가
-        OrderHistory history = OrderHistory.builder()
-                .order(this)
-                .orderStatus(newStatus)
-                .previousStatus(previousStatus)
-                .changedBy(changedBy)
-                .build();
-        this.orderHistories.add(history);
-    }
-
-    /**
-     * 결제 상태를 변경합니다.
-     */
-    public void changePaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    /**
-     * 배송 정보를 업데이트합니다.
-     */
-    public void updateShippingInfo(String receiverName, String phone, String address, 
-                                 String addressDetail, String postalCode) {
-        this.shippingReceiverName = receiverName;
-        this.shippingPhone = phone;
-        this.shippingAddress = address;
-        this.shippingAddressDetail = addressDetail;
-        this.shippingPostalCode = postalCode;
-    }
-
-    /**
-     * 판매자 메모를 업데이트합니다.
-     */
-    public void updateSellerMemo(String sellerMemo) {
-        this.sellerMemo = sellerMemo;
-    }
-
-    /**
-     * 주문이 취소 가능한 상태인지 확인합니다.
-     */
-    public boolean isCancellable() {
-        return orderStatus == OrderStatus.PENDING || orderStatus == OrderStatus.CONFIRMED;
-    }
 }

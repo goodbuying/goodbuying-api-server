@@ -36,21 +36,4 @@ public class ProductImage extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
-
-    /**
-     * 이미지 파일키를 업데이트합니다.
-     */
-    public void updateFilekey(String filekey) {
-        this.filekey = filekey;
-    }
-
-    /**
-     * 상품과의 연관관계를 설정합니다.
-     */
-    public void setProduct(Product product) {
-        this.product = product;
-        if (product != null && !product.getProductImages().contains(this)) {
-            product.getProductImages().add(this);
-        }
-    }
 }

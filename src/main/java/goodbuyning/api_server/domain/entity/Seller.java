@@ -1,5 +1,6 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -61,13 +62,6 @@ public class Seller extends BaseEntity {
     private Status status;
 
     /**
-     * 리프레시 토큰
-     * JWT 토큰 갱신을 위해 사용됩니다.
-     */
-    @Column(name = "refresh_token", length = 500)
-    private String refreshToken;
-
-    /**
      * 리프레시 토큰 만료 시간
      */
     @Column(name = "expire_at")
@@ -79,28 +73,4 @@ public class Seller extends BaseEntity {
      */
     @OneToOne(mappedBy = "seller", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private SellerSocial sellerSocial;
-
-    /**
-     * 판매자의 상태를 변경합니다.
-     */
-    public void changeStatus(Status status) {
-        this.status = status;
-    }
-
-    /**
-     * 리프레시 토큰을 업데이트합니다.
-     */
-    public void updateRefreshToken(String refreshToken, LocalDateTime expireAt) {
-        this.refreshToken = refreshToken;
-        this.expireAt = expireAt;
-    }
-
-    /**
-     * 판매자 정보를 업데이트합니다.
-     */
-    public void updateInfo(String name, String nickname, String phoneNumber) {
-        this.name = name;
-        this.nickname = nickname;
-        this.phoneNumber = phoneNumber;
-    }
 }

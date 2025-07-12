@@ -1,5 +1,6 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -84,35 +85,4 @@ public class Market extends BaseEntity {
     @OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Product> products = new ArrayList<>();
-
-    /**
-     * 마켓 정보를 업데이트합니다.
-     */
-    public void updateInfo(String name, String description, Integer timer) {
-        this.name = name;
-        this.description = description;
-        this.timer = timer;
-    }
-
-    /**
-     * 마켓 상태를 변경합니다.
-     */
-    public void changeStatus(Status status) {
-        this.status = status;
-    }
-
-    /**
-     * 대표 이미지를 업데이트합니다.
-     */
-    public void updateCoverImage(String coverImageFilekey) {
-        this.coverImageFilekey = coverImageFilekey;
-    }
-
-    /**
-     * 마켓 활성화가 가능한지 확인합니다.
-     * 하나의 판매자는 동시에 하나의 ACTIVE 마켓만 가질 수 있습니다.
-     */
-    public boolean canActivate() {
-        return this.status != Status.ACTIVE;
-    }
 }

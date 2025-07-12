@@ -1,5 +1,6 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.LinkType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,22 +45,4 @@ public class Link extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "market_id", nullable = false)
     private Market market;
-
-    /**
-     * 링크 정보를 업데이트합니다.
-     */
-    public void updateLink(LinkType type, String url) {
-        this.type = type;
-        this.url = url;
-    }
-
-    /**
-     * 마켓과의 연관관계를 설정합니다.
-     */
-    public void setMarket(Market market) {
-        this.market = market;
-        if (market != null && !market.getLinks().contains(this)) {
-            market.getLinks().add(this);
-        }
-    }
 }

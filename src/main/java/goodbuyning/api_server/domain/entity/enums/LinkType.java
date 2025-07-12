@@ -1,4 +1,4 @@
-package goodbuyning.api_server.domain.entity;
+package goodbuyning.api_server.domain.entity.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum LinkType {
     TIKTOK("tiktok", "틱톡"),
-    YOUTUBE("youtube", "유튜브"),
-    INSTAGRAM("instagram", "인스타그램"),
-    BLOG("blog", "블로그"),
-    WEBSITE("website", "웹사이트");
-
+    YOUTUBE("youtube", "유튜브");
     private final String code;
     private final String displayName;
 }

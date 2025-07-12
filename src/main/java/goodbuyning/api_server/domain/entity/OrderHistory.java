@@ -1,5 +1,7 @@
 package goodbuyning.api_server.domain.entity;
 
+import goodbuyning.api_server.domain.entity.enums.ChangedBy;
+import goodbuyning.api_server.domain.entity.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -54,32 +56,4 @@ public class OrderHistory extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
-
-    /**
-     * 주문과의 연관관계를 설정합니다.
-     */
-    public void setOrder(Order order) {
-        this.order = order;
-        if (order != null && !order.getOrderHistories().contains(this)) {
-            order.getOrderHistories().add(this);
-        }
-    }
-
-    /**
-     * 상태 변경이 유효한지 확인합니다.
-     */
-    public boolean isValidStatusChange() {
-        if (previousStatus == null) {
-            // 최초 생성 시에는 PENDING 상태여야 함
-            return orderStatus == OrderStatus.PENDING;
-        }
-        
-        // 상태 변경 규칙 검증
-        return switch (previousStatus) {
-            case PENDING -> orderStatus == OrderStatus.CONFIRMED || orderStatus == OrderStatus.CANCELLED;
-            case CONFIRMED -> orderStatus == OrderStatus.SHIPPED || orderStatus == OrderStatus.CANCELLED;
-            case SHIPPED -> orderStatus == OrderStatus.DELIVERED;
-            case DELIVERED, CANCELLED -> false; // 최종 상태에서는 변경 불가
-        };
-    }
 }
