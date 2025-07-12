@@ -12,7 +12,7 @@ import java.util.List;
  * 고객이 상품을 주문한 정보와 배송지 정보를 관리합니다.
  */
 @Entity
-@Table(name = "order")  // 'order'는 SQL 예약어이므로 주의
+@Table(name = "`order`")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -27,18 +27,20 @@ public class Order extends BaseEntity {
     private Long id;
 
     /**
-     * 고객 고유 키 (Foreign Key)
-     * Customer Entity의 key 필드와 연결됩니다.
+     * 연결된 고객 정보
+     * N:1 관계로 연결됩니다.
      */
-    @Column(name = "customer_key", nullable = false, length = 36)
-    private String customerKey;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 
     /**
-     * 마켓 ID (Foreign Key)
-     * 주문이 발생한 마켓 정보입니다.
+     * 연결된 마켓 정보
+     * N:1 관계로 연결됩니다.
      */
-    @Column(name = "market_id", nullable = false)
-    private Long marketId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "market_id", nullable = false)
+    private Market market;
 
     /**
      * 주문번호 (Unique)

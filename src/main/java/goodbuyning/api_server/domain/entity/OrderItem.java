@@ -25,20 +25,6 @@ public class OrderItem extends BaseEntity {
     private Long id;
 
     /**
-     * 상품 ID (Foreign Key)
-     * Product Entity와 연결됩니다.
-     */
-    @Column(name = "product_id", nullable = false)
-    private Long productId;
-
-    /**
-     * 상품 옵션 ID (Foreign Key)
-     * ProductOption Entity와 연결됩니다.
-     */
-    @Column(name = "product_option_id", nullable = false)
-    private Long productOptionId;
-
-    /**
      * 주문 수량
      * 해당 상품의 주문 개수입니다.
      */
@@ -68,19 +54,19 @@ public class OrderItem extends BaseEntity {
     private Order order;
 
     /**
-     * 상품 정보 (읽기 전용)
+     * 상품 정보
      * N:1 관계로 연결됩니다.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     /**
-     * 상품 옵션 정보 (읽기 전용)
+     * 상품 옵션 정보
      * N:1 관계로 연결됩니다.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_option_id", insertable = false, updatable = false)
+    @JoinColumn(name = "product_option_id", nullable = false)
     private ProductOption productOption;
 
     /**

@@ -64,9 +64,10 @@ public class CustomerSocial extends BaseEntity {
     /**
      * 연결된 고객 정보
      * 1:1 관계로 연결됩니다.
+     * customer_social.id가 customer.id와 동일한 값을 가집니다.
      */
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     /**

@@ -26,11 +26,12 @@ public class Market extends BaseEntity {
     private Long id;
 
     /**
-     * 판매자 고유 키 (Foreign Key)
-     * Seller Entity의 key 필드와 연결됩니다.
+     * 연결된 판매자 정보
+     * N:1 관계로 연결됩니다.
      */
-    @Column(name = "seller_key", nullable = false, length = 36)
-    private String sellerKey;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id", nullable = false)
+    private Seller seller;
 
     /**
      * 마켓 이름

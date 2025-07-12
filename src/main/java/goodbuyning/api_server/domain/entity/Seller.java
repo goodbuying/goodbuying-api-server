@@ -28,8 +28,8 @@ public class Seller extends BaseEntity {
      * 판매자 고유 키 (Unique)
      * UUID 형태로 생성되어 외부 노출용 식별자로 사용됩니다.
      */
-    @Column(name = "key", unique = true, nullable = false, length = 36)
-    private String key;
+    @Column(name = "seller_key", unique = true, nullable = false, length = 36)
+    private String sellerKey;
 
     /**
      * 판매자 이름 (실명)

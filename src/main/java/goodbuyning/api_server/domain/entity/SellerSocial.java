@@ -57,9 +57,10 @@ public class SellerSocial extends BaseEntity {
     /**
      * 연결된 판매자 정보
      * 1:1 관계로 연결됩니다.
+     * seller_social.id가 seller.id와 동일한 값을 가집니다.
      */
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "seller_id", nullable = false)
     private Seller seller;
 
     /**
