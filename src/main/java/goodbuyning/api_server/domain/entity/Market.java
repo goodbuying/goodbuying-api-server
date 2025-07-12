@@ -1,0 +1,117 @@
+package goodbuyning.api_server.domain.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 마켓 정보를 저장하는 Entity
+ * 판매자가 운영하는 마켓의 기본 정보를 관리합니다.
+ */
+@Entity
+@Table(name = "market")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+public class Market extends BaseEntity {
+
+    /**
+     * 마켓 고유 ID (Primary Key)
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    /**
+     * 판매자 고유 키 (Foreign Key)
+     * Seller Entity의 key 필드와 연결됩니다.
+     */
+    @Column(name = "seller_key", nullable = false, length = 36)
+    private String sellerKey;
+
+    /**
+     * 마켓 이름
+     * 고객에게 표시되는 마켓의 상호명입니다.
+     */
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+
+    /**
+     * 마켓 설명
+     * 마켓에 대한 간단한 소개 및 설명입니다.
+     */
+    @Column(name = "description", nullable = false, length = 500)
+    private String description;
+
+    /**
+     * 마켓 상태
+     * ACTIVE: 운영중, INACTIVE: 일시정지, DELETED: 삭제됨
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    /**
+     * 마켓 대표 이미지 파일키
+     * 파일 서버에 저장된 이미지의 식별자입니다.
+     */
+    @Column(name = "cover_image_filekey", length = 100)
+    private String coverImageFilekey;
+
+    /**
+     * 계좌이체 타이머 (분 단위)
+     * 5분 단위로 설정 가능하며 최대 30분까지 설정할 수 있습니다.
+     */
+    @Column(name = "timer", nullable = false)
+    private Integer timer;
+
+    /**
+     * 마켓에 연결된 링크 목록
+     * 1:N 관계로 연결됩니다.
+     */
+    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Link> links = new ArrayList<>();
+
+    /**
+     * 마켓의 상품 목록
+     * 1:N 관계로 연결됩니다.
+     */
+    @OneToMany(mappedBy = "market", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Product> products = new ArrayList<>();
+
+    /**
+     * 마켓 정보를 업데이트합니다.
+     */
+    public void updateInfo(String name, String description, Integer timer) {
+        this.name = name;
+        this.description = description;
+        this.timer = timer;
+    }
+
+    /**
+     * 마켓 상태를 변경합니다.
+     */
+    public void changeStatus(Status status) {
+        this.status = status;
+    }
+
+    /**
+     * 대표 이미지를 업데이트합니다.
+     */
+    public void updateCoverImage(String coverImageFilekey) {
+        this.coverImageFilekey = coverImageFilekey;
+    }
+
+    /**
+     * 마켓 활성화가 가능한지 확인합니다.
+     * 하나의 판매자는 동시에 하나의 ACTIVE 마켓만 가질 수 있습니다.
+     */
+    public boolean canActivate() {
+        return this.status != Status.ACTIVE;
+    }
+}
