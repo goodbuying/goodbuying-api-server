@@ -29,8 +29,12 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
         password: ${{ secrets.SERVER_PASSWORD }}
+        port: 9952
+        timeout: 60s
+        command_timeout: 30m
         source: "goodbuying-api-server.tar.gz,docker-compose.yml,deploy.sh"
         target: "/home/${{ secrets.SERVER_USER }}/goodbuying-api"
+        debug: true
         
     - name: Deploy to server
       uses: appleboy/ssh-action@v0.1.10
@@ -38,6 +42,10 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
         password: ${{ secrets.SERVER_PASSWORD }}
+        port: 9952
+        timeout: 60s
+        command_timeout: 30m
+        debug: true
         script: |
           cd /home/${{ secrets.SERVER_USER }}/goodbuying-api
           chmod +x deploy.sh
