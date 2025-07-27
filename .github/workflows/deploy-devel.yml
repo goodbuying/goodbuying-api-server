@@ -32,7 +32,7 @@ jobs:
         port: 9952
         timeout: 60s
         command_timeout: 30m
-        source: "goodbuying-api-server.tar.gz,docker-compose.yml,deploy.sh"
+        source: "goodbuying-api-server.tar.gz,deploy.sh"
         target: "/home/${{ secrets.SERVER_USER }}/goodbuying-api"
         debug: true
         
