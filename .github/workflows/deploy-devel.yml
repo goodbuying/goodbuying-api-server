@@ -27,12 +27,6 @@ jobs:
     - name: List JAR files
       run: ls -la build/libs/
       
-    - name: Rename JAR file
-      run: |
-        cd build/libs
-        mv *.jar app.jar 2>/dev/null || find . -name "*.jar" ! -name "*plain*" -exec mv {} app.jar \;
-        ls -la
-      
     - name: Build Docker image
       run: |
         docker build -t goodbuying-api-server:latest .
