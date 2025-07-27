@@ -7,15 +7,26 @@ spring:
     username: hello
     password: hello
     driver-class-name: com.mysql.cj.jdbc.Driver
-    
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
+
+jwt:
+  secret: goodbuying-secret-key-for-jwt-token-generation-and-validation-2025
+  expiration: 86400000
+
+springdoc:
+  override-with-generic-response : false
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
 
 logging:
   level:
