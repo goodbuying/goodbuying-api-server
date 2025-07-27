@@ -3,7 +3,7 @@ spring:
     name: goodbuying-api
     
   datasource:
-    url: jdbc:mysql://localhost:3307/goodbuying?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://goodbuying-mysql:3306/goodbuying?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
     username: hello
     password: hello
     driver-class-name: com.mysql.cj.jdbc.Driver
