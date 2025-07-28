@@ -16,7 +16,7 @@ echo "Starting new container..."
 docker run -d \
   --name goodbuying-api-server \
   --restart unless-stopped \
-  -p 8081:8081 \
+  -p 8080:8080 \
   -e SPRING_PROFILES_ACTIVE=devel \
   -e TZ=Asia/Seoul \
   goodbuying-api-server:latest
