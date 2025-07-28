@@ -11,7 +11,7 @@ EXPOSE 8081
 ENTRYPOINT [\
     "java",\
     "-Dspring.profiles.active=devel",\
-    "-Dserver.port=8081",\
+    "-Dserver.port=8080",\
     "-Duser.timezone=Asia/Seoul",\
     "-jar",\
     "/app.jar"\
