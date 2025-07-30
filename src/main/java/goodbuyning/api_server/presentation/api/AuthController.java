@@ -1,4 +1,4 @@
-package goodbuyning.api_server.presentation;
+package goodbuyning.api_server.presentation.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

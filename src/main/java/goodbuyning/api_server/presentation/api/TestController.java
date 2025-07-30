@@ -1,7 +1,7 @@
-package goodbuyning.api_server.presentation;
+package goodbuyning.api_server.presentation.api;
 
-import goodbuyning.api_server.domain.api.request.TestPostReq;
-import goodbuyning.api_server.domain.api.response.TestPostRes;
+import goodbuyning.api_server.presentation.api.request.TestPostReq;
+import goodbuyning.api_server.presentation.api.response.TestPostRes;
 import goodbuyning.api_server.domain.service.TestService;
 import goodbuyning.api_server.global.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package goodbuyning.api_server.domain.service;
 
-import goodbuyning.api_server.domain.api.request.TestPostReq;
-import goodbuyning.api_server.domain.api.response.TestPostRes;
+import goodbuyning.api_server.presentation.api.request.TestPostReq;
+import goodbuyning.api_server.presentation.api.response.TestPostRes;
 import goodbuyning.api_server.global.common.exception.DomainException;
 import goodbuyning.api_server.global.common.response.ErrorCode;
 import org.springframework.stereotype.Service;
