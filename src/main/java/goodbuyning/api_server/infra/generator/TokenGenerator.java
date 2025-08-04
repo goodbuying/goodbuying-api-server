@@ -2,39 +2,33 @@ package goodbuyning.api_server.infra.generator;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-@Component
 public class TokenGenerator {
     
-    @Value("${jwt.secret}")
-    private String jwtSecret;
+    private static final String JWT_SECRET = "your-secret-key-here-make-it-long-enough-for-hmac-sha256";
+    private static final long JWT_EXPIRATION = 86400000; // 24 hours
     
-    @Value("${jwt.expiration}")
-    private long jwtExpiration;
-    
-    private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    private static SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(JWT_SECRET.getBytes());
     }
     
-    public String generateAccessToken(String userId) {
+    public static String generateAccessToken(String userId) {
         return Jwts.builder()
                 .subject(userId)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .expiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION))
                 .signWith(getSigningKey())
                 .compact();
     }
     
-    public String generateRefreshToken(String userId) {
+    public static String generateRefreshToken(String userId) {
         return Jwts.builder()
                 .subject(userId)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtExpiration * 7))
+                .expiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION * 7))
                 .signWith(getSigningKey())
                 .compact();
     }
